@@ -24,7 +24,10 @@
 #include<PLAYER.h>
 #include<HELP.h>
 #include<HERO.h>
+#include<RECMAN.h>
 #include<LEVEL_01.h>
+#include<LEVEL_02.h>
+#include<LEVEL_03.h>
 #include<STARTMEN.h>
 
 int SYSTEM_EXIT=0;
@@ -33,7 +36,30 @@ void new_game()
 {
     help();
     intro();
-    lvl_01();
+    if(1)
+    {
+        lvl_01();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            return;
+        }
+        lvl12_bridge();
+        lvl_02();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            return;
+        }
+        lvl23_bridge();
+        lvl_03();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            return;
+        }
+        ending();
+    }
 }
 
 void continue_game()
@@ -42,10 +68,60 @@ void continue_game()
     {
     case 1:
     {
-	lvl_01();
-	break;
+        lvl_01();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        lvl12_bridge();
+        lvl_02();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        lvl23_bridge();
+        lvl_03();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        ending();
+        break;
+
     }
-//case 2: {lvl_02();break;}
+    case 2:
+    {
+        lvl_02();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        lvl23_bridge();
+        lvl_03();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        ending();
+        break;
+    }
+
+    case 3:
+    {
+        lvl_03();
+        if(ispressedEsc==1)
+        {
+            ispressedEsc=0;
+            break;
+        }
+        ending();
+        break;
+    }
     }
 
 }
@@ -60,23 +136,23 @@ void main()
     beginning();
     while(!SYSTEM_EXIT)
     {
-	switch(StartMenu())
-	{
-	case 0:
-	{
-	    if(load_save())
-		continue_game();
-	    break;
-	}
-	case 1:
-	{
-	    new_game();
-	    break;
-	}
-	case 2:
-	{
-	    save('O');
-	    break;
+        switch(StartMenu())
+        {
+        case 0:
+        {
+            if(load_save())
+                continue_game();
+            break;
+        }
+        case 1:
+        {
+            new_game();
+            break;
+        }
+        case 2:
+        {
+            save('O');
+            break;
         }
         case 3:
         {
